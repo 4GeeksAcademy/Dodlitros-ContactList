@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const CreateContact = () => {
 	return (
-		<nav className="navbar navbar-light bg-light mb-3">
+		<nav className="navbar justify-content-end navbar-light bg-light mb-3">
 			<div className="ml-auto">
-				<Link to="/demo">
+				<Link to="/new">
 					<button className="btn btn-success">Create a new contact</button>
 				</Link>
 			</div>

@@ -1,0 +1,23 @@
+*{
+background-color: rgb(247, 247, 246);
+}
+img{
+    width: 100%;
+    border: 1px solid black ;
+}
+li{
+    list-style-type: none;
+    margin-bottom: 15px;
+}
+ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-radius: 0.25rem;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+.card{
+    border:white;
+}
