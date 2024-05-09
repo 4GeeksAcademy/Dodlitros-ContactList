@@ -6,11 +6,12 @@ import "../../styles/newContact.css";
 
 export const NewContact = () => {
 
-	const [name, setName] = useState("")
-	const [email, setEmail] = useState("")
-	const [phone, setPhone] = useState("")
-	const [adress, setAdress] = useState("")
-	
+	const [info, setInfo] = useState({
+		"name":"",
+		"phone":"",
+		"email":"",
+		"address":""
+	})
 	const {store, actions} = useContext(Context);
 
 	return (
@@ -20,38 +21,42 @@ export const NewContact = () => {
 					<input 
 						type="text" 
 						placeholder="Full Name"
-						value={name}
-						onChange={(e)=>setName(e.target.value)}
+						value={info.name}
+						onChange={(e)=>setInfo({...info, name: e.target.value})}
 					/>
 				<h5>Email</h5>
 					<input 
 						type="text" 
 						placeholder="Email" 
-						value={email}
-						onChange={(e)=>setEmail(e.target.value)}
+						value={info.email}
+						onChange={(e)=>setInfo({...info, email:e.target.value})}
 					/>
 				<h5>Phone</h5>
 					<input 
 						type="text" 
 						placeholder="Phone" 
-						value={phone}
-						onChange={(e)=>setPhone(e.target.value)}
+						value={info.phone}
+						onChange={(e)=>setInfo({...info, phone:e.target.value})}
 					/>
 				<h5>Adress</h5>
 					<input 
 						type="text" 
-						placeholder="Adress" 
-						value={adress}
-						onChange={(e)=>setAdress(e.target.value)}
+						placeholder="Address" 
+						value={info.address}
+						onChange={(e)=>setInfo({...info, address:e.target.value})}
 					/>
 				<br/>
-				<button  className="btn btn-primary mt-5"> Save</button>
+				<Link to="/">
+					<button 
+						className="btn btn-primary mt-5"
+						onClick={()=> actions.addContact(info)}
+						>Save</button>
+				</Link>
 			</div>
 			<br />
 			<Link to="/">
 				<button 
 					className="btn btn-primary"
-					onClick={ ()=> actions.Add() }
 				>Back home</button>
 			</Link>
 		</div>

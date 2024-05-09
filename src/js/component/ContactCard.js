@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export const ContactCard = ({ contact }) => {
   const { actions } = useContext(Context);
+   
 
   const handleDeleteContact = async () => {
     await actions.deleteContact(contact.id); 

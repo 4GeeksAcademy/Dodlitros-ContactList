@@ -1,26 +1,68 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Single = props => {
-	const { store, actions } = useContext(Context);
-	const params = useParams();
-	return (
-		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
+export const EditContact = () => {
+    const { id } = useParams();
+    const { store, actions } = useContext(Context);
 
-			<hr className="my-4" />
+    const [contact, setContact] = useState({
+        name: "",
+        address: "",
+        email: "",
+        phone: ""
+    });
 
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" href="#" role="button">
-					Back home
-				</span>
-			</Link>
-		</div>
-	);
-};
+    useEffect(() => {
+        // Buscar el contacto por ID y actualizar el estado
+		actions.listContacts();
+        const foundContact = store.contacts.find(contact => contact.id === parseInt(id));
+        if (foundContact) {
+            setContact(foundContact);
+        } else{
+			console.log(id)
+			console.log(store.contacts)
+		}
+    }, [id]);
 
-Single.propTypes = {
-	match: PropTypes.object
+    const handleChange = e => {
+        setContact({
+            ...contact,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSave = () => {
+        actions.updateContact(contact, id)
+    };
+
+    return (
+        <div className="container mt-5">
+            <h1 className="text-center mb-4">Edit Contact</h1>
+            <div className="card">
+                <div className="card-body">
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input type="text" className="form-control" id="name" name="name" value={contact.name} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="address">Address:</label>
+                        <input type="text" className="form-control" id="address" name="address" value={contact.address} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input type="email" className="form-control" id="email" name="email" value={contact.email} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="phone">Phone:</label>
+                        <input type="tel" className="form-control" id="phone" name="phone" value={contact.phone} onChange={handleChange} />
+                    </div>
+                    <div className="text-center">
+                        <Link to="/"><button className="btn btn-primary mr-3" onClick={handleSave}>Save</button></Link>
+                        <Link to="/" className="btn btn-secondary">Cancel</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
